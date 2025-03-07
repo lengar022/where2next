@@ -1,0 +1,65 @@
+{
+  "users": [
+    {
+      "firstName": "Homer",
+      "lastName": "Simpson",
+      "email": "homer@simpson.com",
+      "password": "secret",
+      "_id": "c463f9f5-6ac7-4ae0-979c-63720452c4d0"
+    },
+    {
+      "firstName": "Marge",
+      "lastName": "Simpson",
+      "email": "marge@simpson.com",
+      "password": "secret",
+      "_id": "3284caa8-bd29-44c4-a8a0-917a0172407b"
+    },
+    {
+      "firstName": "Bart",
+      "lastName": "Simpson",
+      "email": "bart@simpson.com",
+      "password": "secret",
+      "_id": "83199b1f-cdeb-41b7-8afa-6ab5ef347444"
+    }
+  ],
+  "categories": [
+    {
+      "userid": "bb830d9e-ff79-4a4e-9538-6f29eb0fe707",
+      "title": "category one",
+      "_id": "1e85ddb5-7f2a-4c7c-8a5d-6a33546bef96"
+    },
+    {
+      "userid": "ce1de52f-b387-4c6c-a7e4-23899660ce5a",
+      "title": "category two",
+      "_id": "522e374e-17ba-4d3c-9f04-7b3d4002f1bc"
+    },
+    {
+      "userid": "66737507-1c30-43e7-877f-ba6ca35e9362",
+      "title": "Beach",
+      "_id": "45836131-92bd-45ef-bdf8-838d84e81f32"
+    },
+    {
+      "userid": "66737507-1c30-43e7-877f-ba6ca35e9362",
+      "title": "Swimming Spots",
+      "_id": "9fa0e6fa-01a3-42d7-88a6-1e26153ec208"
+    }
+  ],
+  "placemarks": [
+    {
+      "name": "placemark one",
+      "description": "description one",
+      "latitude": 10,
+      "longitude": 11,
+      "_id": "70c53a1c-7ab8-415a-a01a-3234c69e28be",
+      "categoryid": "522e374e-17ba-4d3c-9f04-7b3d4002f1bc"
+    },
+    {
+      "name": "Ballybunion",
+      "description": "Beautiful beach in North Kerry",
+      "latitude": 15151,
+      "longitude": 212121,
+      "_id": "23830edf-1940-4aa1-b529-af5e512c9eb1",
+      "categoryid": "45836131-92bd-45ef-bdf8-838d84e81f32"
+    }
+  ]
+}
