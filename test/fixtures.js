@@ -25,3 +25,19 @@ export const testUsers = [
     password: "secret",
   },
 ];
+
+export const greenway = {
+  title: "Green Ways"
+};
+
+export const testCategories = [
+  {
+    title: "Beaches"
+  },
+  {
+    title: "Cliff Walks"
+  },
+  {
+    title: "Sea Swims"
+  }
+];

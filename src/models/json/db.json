@@ -5,43 +5,35 @@
       "lastName": "Simpson",
       "email": "homer@simpson.com",
       "password": "secret",
-      "_id": "13f1f298-010d-4841-ae3d-747aa594d805"
+      "_id": "2cdf60d7-7c39-417b-8342-fed698e95aa2"
     },
     {
       "firstName": "Marge",
       "lastName": "Simpson",
       "email": "marge@simpson.com",
       "password": "secret",
-      "_id": "4b7f7ef0-95bf-47f8-a473-19ce27b5eadc"
+      "_id": "8adec370-ac5f-4814-ada9-187ebf138205"
     },
     {
       "firstName": "Bart",
       "lastName": "Simpson",
       "email": "bart@simpson.com",
       "password": "secret",
-      "_id": "817568d4-41da-433a-880c-31756f0e0883"
+      "_id": "87827306-55c6-413f-8076-e44b8e41594d"
     }
   ],
   "categories": [
     {
-      "userid": "bb830d9e-ff79-4a4e-9538-6f29eb0fe707",
-      "title": "category one",
-      "_id": "1e85ddb5-7f2a-4c7c-8a5d-6a33546bef96"
+      "title": "Beaches",
+      "_id": "23e2f7d9-9e88-4c1d-876c-d6ec64e3641d"
     },
     {
-      "userid": "ce1de52f-b387-4c6c-a7e4-23899660ce5a",
-      "title": "category two",
-      "_id": "522e374e-17ba-4d3c-9f04-7b3d4002f1bc"
+      "title": "Cliff Walks",
+      "_id": "70749b36-d723-45b0-80df-f814278fd23b"
     },
     {
-      "userid": "66737507-1c30-43e7-877f-ba6ca35e9362",
-      "title": "Beach",
-      "_id": "45836131-92bd-45ef-bdf8-838d84e81f32"
-    },
-    {
-      "userid": "66737507-1c30-43e7-877f-ba6ca35e9362",
-      "title": "Swimming Spots",
-      "_id": "9fa0e6fa-01a3-42d7-88a6-1e26153ec208"
+      "title": "Sea Swims",
+      "_id": "2109cf35-98dc-4c1d-88ae-f8403439c2ea"
     }
   ],
   "placemarks": [

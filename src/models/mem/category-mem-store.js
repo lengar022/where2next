@@ -15,8 +15,12 @@ export const categoryMemStore = {
   },
 
   async getCategoryById(id) {
-    const list = categories.find((category) => category._id === id);
-    list.placemarks = await placemarkMemStore.getPlacemarksByCategoryId(list._id);
+    let list = categories.find((category) => category._id === id);
+    if (list) {
+      list.placemarks = await placemarkMemStore.getPlacemarksByCategoryId(list._id);
+    } else {
+      list = null;
+    }
     return list;
   },
 
@@ -26,7 +30,7 @@ export const categoryMemStore = {
 
   async deleteCategoryById(id) {
     const index = categories.findIndex((category) => category._id === id);
-    categories.splice(index, 1);
+    if (index !== -1) categories.splice(index, 1);
   },
 
   async deleteAllCategories() {
