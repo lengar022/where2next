@@ -26,8 +26,40 @@ export const testUsers = [
   },
 ];
 
+export const saunaAndSwim = {
+  "name": "Oyster Haven",
+  "description": "Sauna and swim by a slip near Kinsale",
+  "latitude": 15.22,
+  "longitude": 15.44
+};
+
+export const testPlacemarks = [
+  {
+    "name": "Fountains Town",
+    "description": "Sauna and swim by a slip just outside cork city",
+    "latitude": 14.22,
+    "longitude": 14.44
+  },
+  {
+    "name": "Ballybunion",
+    "description": "Large beach located in North Kerry",
+    "latitude": 13.22,
+    "longitude": 13.44
+  },
+  {
+    "name": "Bother Glas",
+    "description": "Walkway along the river Clyda in Mourneabbey",
+    "latitude": 12.22,
+    "longitude": 12.44
+  }
+];
+
 export const greenway = {
   title: "Green Ways"
+};
+
+export const mountainHike = {
+  title: "Mountain Hikes"
 };
 
 export const testCategories = [
@@ -41,3 +73,5 @@ export const testCategories = [
     title: "Sea Swims"
   }
 ];
+
+export const serviceUrl = "http://localhost:3000";
