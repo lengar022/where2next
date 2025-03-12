@@ -49,4 +49,29 @@ export const where2nextService = {
     const res = await axios.get(`${this.where2nextUrl}/api/categories/${id}`);
     return res.data;
   },
+
+  async createPlacemark(id, placemark) {
+    const res = await axios.post(`${this.where2nextUrl}/api/categories/${id}/placemarks`, placemark);
+    return res.data;
+  },
+
+  async deleteAllPlacemarks() {
+    const response = await axios.delete(`${this.where2nextUrl}/api/placemarks`);
+    return response.data;
+  },
+
+  async deletePlacemark(id) {
+    const response = await axios.delete(`${this.where2nextUrl}/api/placemarks/${id}`);
+    return response;
+  },
+
+  async getAllPlacemarks() {
+    const res = await axios.get(`${this.where2nextUrl}/api/placemarks`);
+    return res.data;
+  },
+
+  async getPlacemark(id) {
+    const res = await axios.get(`${this.where2nextUrl}/api/placemarks/${id}`);
+    return res.data;
+  },
 }

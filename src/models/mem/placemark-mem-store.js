@@ -15,20 +15,32 @@ export const placemarkMemStore = {
   },
 
   async getPlacemarksByCategoryId(id) {
-    return placemarks.filter((placemark) => placemark.categoryid === id);
+    let foundPlacemarks = placemarks.filter((placemark) => placemark.categoryid === id);
+    if (!foundPlacemarks) {
+      foundPlacemarks = null;
+    }
+    return foundPlacemarks;
   },
 
   async getPlacemarkById(id) {
-    return placemarks.find((placemark) => placemark._id === id);
+    let foundPlacemarks = placemarks.find((placemark) => placemark._id === id);
+    if (!foundPlacemarks) {
+      foundPlacemarks = null;
+    }
+    return foundPlacemarks;
   },
 
   async getCategoryPlacemarks(categoryId) {
-    return placemarks.filter((placemark) => placemark.categoryid === categoryId);
+    let foundPlacemarks = placemarks.filter((placemark) => placemark.categoryid === categoryId);
+    if (!foundPlacemarks) {
+      foundPlacemarks = null;
+    }
+    return foundPlacemarks;
   },
 
   async deletePlacemark(id) {
     const index = placemarks.findIndex((placemark) => placemark._id === id);
-    placemarks.splice(index, 1);
+    if (index !== -1) placemarks.splice(index, 1);
   },
 
   async deleteAllPlacemarks() {
