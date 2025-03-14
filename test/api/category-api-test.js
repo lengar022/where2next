@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import { assert } from "chai";
 import { where2nextService } from "./where2next-service.js";
 import { assertSubset } from "../test-utils.js";
-import { maggie, mountainHike, testCategories } from "../fixtures.js";
+import { maggie, maggieCredentials, mountainHike, testCategories } from "../fixtures.js";
 
 EventEmitter.setMaxListeners(25);
 
@@ -11,9 +11,13 @@ suite("Category API tests", () => {
   let user = null;
 
   setup(async () => {
+    where2nextService.clearAuth();
+    user = await where2nextService.createUser(maggie);
+    await where2nextService.authenticate(maggieCredentials);
     await where2nextService.deleteAllCategories();
     await where2nextService.deleteAllUsers();
     user = await where2nextService.createUser(maggie);
+    await where2nextService.authenticate(maggieCredentials);
     mountainHike.userid = user._id;
   });
 

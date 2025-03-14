@@ -1,17 +1,21 @@
 import { assert } from "chai";
 import { assertSubset } from "../test-utils.js";
 import { where2nextService } from "./where2next-service.js";
-import { maggie, mountainHike, testCategories, testPlacemarks, saunaAndSwim } from "../fixtures.js";
+import { maggie, maggieCredentials, mountainHike, testCategories, testPlacemarks, saunaAndSwim } from "../fixtures.js";
 
 suite("Placemark API tests", () => {
   let user = null;
   let mountainHikes = null;
 
   setup(async () => {
-    await where2nextService.deleteAllCategories();
-    await where2nextService.deleteAllUsers();
-    await where2nextService.deleteAllPlacemarks();
+    where2nextService.clearAuth();
     user = await where2nextService.createUser(maggie);
+    await where2nextService.authenticate(maggieCredentials);
+    await where2nextService.deleteAllCategories();
+    await where2nextService.deleteAllPlacemarks();
+    await where2nextService.deleteAllUsers();
+    user = await where2nextService.createUser(maggie);
+    await where2nextService.authenticate(maggieCredentials);
     mountainHike.userid = user._id;
     mountainHikes = await where2nextService.createCategory(mountainHike);
   });

@@ -3,6 +3,7 @@ import Hapi from "@hapi/hapi";
 import Cookie from "@hapi/cookie";
 import Inert from "@hapi/inert";
 import HapiSwagger from "hapi-swagger";
+import jwt from "hapi-auth-jwt2";
 import dotenv from "dotenv";
 import path from "path";
 import Joi from "joi";
@@ -12,6 +13,7 @@ import { webRoutes } from "./web-routes.js";
 import { apiRoutes } from "./api-routes.js";
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
+import { validate } from "./api/jwt-utils.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +23,14 @@ const swaggerOptions = {
     title: "Where2Next API",
     version: "0.1",
   },
+  securityDefinitions: {
+    jwt: {
+      type: "apiKey",
+      name: "Authorization",
+      in: "header"
+    }
+  },
+  security: [{ jwt: [] }]
 };
 
 const result = dotenv.config();
@@ -46,6 +56,7 @@ async function init() {
       options: swaggerOptions,
     },
   ]);
+  await server.register(jwt);
   server.validator(Joi);
 
   server.views({
@@ -69,6 +80,13 @@ async function init() {
     redirectTo: "/",
     validate: accountsController.validate,
   });
+
+  server.auth.strategy("jwt", "jwt", {
+    key: process.env.cookie_password,
+    validate: validate,
+    verifyOptions: { algorithms: ["HS256"] }
+  });
+
   server.auth.default("session");
 
   db.init("mongo");

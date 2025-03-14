@@ -5,6 +5,16 @@ import { serviceUrl } from "../fixtures.js";
 export const where2nextService = {
   where2nextUrl: serviceUrl,
 
+  async authenticate(user) {
+    const response = await axios.post(`${this.where2nextUrl}/api/users/authenticate`, user);
+    axios.defaults.headers.common.Authorization = `Bearer ${  response.data.token}`;
+    return response.data;
+  },
+
+  async clearAuth() {
+    axios.defaults.headers.common.Authorization = "";
+  },
+
   async createUser(user) {
     const res = await axios.post(`${this.where2nextUrl}/api/users`, user);
     return res.data;
