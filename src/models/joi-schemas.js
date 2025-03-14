@@ -21,13 +21,34 @@ export const UserSpecPlus = UserSpec.keys({
 
 export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
-export const PlacemarkSpec = {
-  name: Joi.string().required(),
-  description: Joi.string().required(),
-  latitude: Joi.number().allow("").optional(),
-  longitude: Joi.number().allow("").optional(),
-};
+export const PlacemarkSpec = Joi.object()
+  .keys({
+    name: Joi.string().required().example("Fountains Town"),
+    description: Joi.string().required().example("Sauna and swim by a slip just outside cork city"),
+    latitude: Joi.number().allow("").optional().example(14.22),
+    longitude: Joi.number().allow("").optional().example(14.44),
+    categoryid: IdSpec,
+  })
+  .label("Placemark");
 
-export const CategorySpec = {
-  title: Joi.string().required(),
-};
+export const PlacemarkSpecPlus = PlacemarkSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("PlacemarkPlus");
+
+export const PlacemarkArraySpec = Joi.array().items(PlacemarkSpecPlus).label("PlacemarkArray");
+
+export const CategorySpec = Joi.object()
+  .keys({
+    title: Joi.string().required().example("Cliff Walks"),
+    userid: IdSpec,
+    placemarks: PlacemarkArraySpec,
+  })
+  .label("Category");
+
+export const CategorySpecPlus = CategorySpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("CategoryPlus");
+
+export const CategoryArraySpec = Joi.array().items(CategorySpecPlus).label("CategoryArray");
