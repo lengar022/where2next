@@ -22,4 +22,6 @@ export const webRoutes = [
   { method: "GET", path: "/category/{id}/deleteplacemark/{placemarkid}", config: categoryController.deletePlacemark },
 
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
+
+  { method: "POST", path: "/category/{id}/uploadimage", config: categoryController.uploadImage },
 ];
