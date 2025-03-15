@@ -1,3 +1,4 @@
+import Path from "path"
 import { PlacemarkSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
@@ -65,6 +66,25 @@ export const categoryController = {
       output: "data",
       maxBytes: 209715200,
       parse: true,
+    },
+  },
+
+  deleteImage: {
+    handler: async function (request, h) {
+      try {
+        const category = await db.categoryStore.getCategoryById(request.params.id);
+        const url = category.img
+        if (url) {
+          const filename = Path.parse(url).name 
+          await imageStore.deleteImage(filename);
+          category.img = null;
+          await db.categoryStore.updateCategory(category);
+        }
+        return h.redirect(`/category/${category._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/category/${category._id}`);
+      }
     },
   },
 };

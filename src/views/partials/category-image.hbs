@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-image">
     <figure class="image is-256x256">
-      <img src={{category.img}}>
+      <img id="category-image" src={{category.img}}>
     </figure>
   </div>
   <div class="card-content">
@@ -32,4 +32,12 @@
       fileName.textContent = fileInput.files[0].name;
     }
   };
+</script>
+
+<script>
+  result = document.getElementById("category-image").getAttribute('src') === '';
+  if (result === false) {
+    delete_icon_html = '<a href="/category/{{category._id}}/deleteimage" class="button is-danger is-outlined"><i class="fas fa-trash"></i></a>';
+    document.getElementById('file-select').innerHTML += delete_icon_html;
+  }
 </script>
