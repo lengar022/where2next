@@ -88,7 +88,7 @@ async function init() {
     verifyOptions: { algorithms: ["HS256"] }
   });
 
-  server.auth.default("jwt");
+  server.auth.default("session");
 
   db.init("mongo");
   server.route(webRoutes);
