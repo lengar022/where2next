@@ -1,23 +1,33 @@
 export const seedData = {
   users: {
     _model: "User",
+    admin: {
+      firstName: "Garrett",
+      lastName: "Lenihan",
+      email: "admin@where2next.com",
+      password: "admin",
+      scope: "admin"
+    },
     homer: {
       firstName: "Homer",
       lastName: "Simpson",
       email: "homer@simpson.com",
-      password: "secret"
+      password: "secret",
+      scope: "user"
     },
     marge: {
       firstName: "Marge",
       lastName: "Simpson",
       email: "marge@simpson.com",
-      password: "secret"
+      password: "secret",
+      scope: "user"
     },
     bart: {
       firstName: "Bart",
       lastName: "Simpson",
       email: "bart@simpson.com",
-      password: "secret"
+      password: "secret",
+      scope: "user"
     }
   },
   categories: {

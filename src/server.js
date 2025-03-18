@@ -41,9 +41,9 @@ if (result.error) {
 
 async function init() {
   const server = Hapi.server({
-    port: process.env.PORT,
-    // port: 3000,
-    // host: "localhost",
+    // port: process.env.PORT,
+    port: 3000,
+    host: "localhost",
   });
 
   await server.register(Vision);

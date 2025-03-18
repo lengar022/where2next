@@ -1,13 +1,13 @@
 import { assert } from "chai";
 import { where2nextService } from "./where2next-service.js";
 import { decodeToken } from "../../src/api/jwt-utils.js";
-import { maggie, maggieCredentials } from "../fixtures.js";
+import { adminUser, adminUserCredentials, maggie, maggieCredentials } from "../fixtures.js";
 
 suite("Authentication API tests", async () => {
   setup(async () => {
     where2nextService.clearAuth();
-    await where2nextService.createUser(maggie);
-    await where2nextService.authenticate(maggieCredentials);
+    await where2nextService.createUser(adminUser);
+    await where2nextService.authenticate(adminUserCredentials);
     await where2nextService.deleteAllUsers();
   });
 

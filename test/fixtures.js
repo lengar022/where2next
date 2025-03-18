@@ -1,8 +1,22 @@
+export const adminUser = {
+  firstName: "admin",
+  lastName: "user",
+  email: "admin@user.com",
+  password: "adminuser",
+  scope: "admin",
+};
+
+export const adminUserCredentials = {
+  email: "admin@user.com",
+  password: "adminuser",
+};
+
 export const maggie = {
   firstName: "Maggie",
   lastName: "Simpson",
   email: "maggie@simpson.com",
   password: "secret",
+  scope: "user",
 };
 
 export const maggieCredentials = {
@@ -16,18 +30,21 @@ export const testUsers = [
     lastName: "Simpson",
     email: "homer@simpson.com",
     password: "secret",
+    scope: "user",
   },
   {
     firstName: "Marge",
     lastName: "Simpson",
     email: "marge@simpson.com",
     password: "secret",
+    scope: "user",
   },
   {
     firstName: "Bart",
     lastName: "Simpson",
     email: "bart@simpson.com",
     password: "secret",
+    scope: "user",
   },
 ];
 

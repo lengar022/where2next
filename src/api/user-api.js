@@ -92,6 +92,7 @@ export const userApi = {
   deleteAll: {
     auth: {
       strategy: "jwt",
+      scope: ["admin"]
     },
     handler: async function (request, h) {
       try {

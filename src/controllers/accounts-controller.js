@@ -25,8 +25,9 @@ export const accountsController = {
     },
     handler: async function (request, h) {
       const user = request.payload;
+      user.role = "user";
       await db.userStore.addUser(user);
-      return h.redirect("/");
+      return h.redirect("/login");
     },
   },
   showLogin: {
@@ -51,6 +52,9 @@ export const accountsController = {
         return h.redirect("/");
       }
       request.cookieAuth.set({ id: user._id });
+      if (user.scope === "admin") {
+        return h.redirect("/admin");
+      }
       return h.redirect("/dashboard");
     },
   },

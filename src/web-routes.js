@@ -1,9 +1,14 @@
+import { adminController } from "./controllers/admin-controller.js";
 import { aboutController } from "./controllers/about-controller.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import { dashboardController } from "./controllers/dashboard-controller.js";
 import { categoryController } from "./controllers/category-controller.js";
 
 export const webRoutes = [
+
+  { method: "GET", path: "/admin", config: adminController.index },
+  { method: "GET", path: "/admin/deleteuser/{userid}", config: adminController.deleteUser },
+
   { method: "GET", path: "/", config: accountsController.index },
   { method: "GET", path: "/signup", config: accountsController.showSignup },
   { method: "GET", path: "/login", config: accountsController.showLogin },
