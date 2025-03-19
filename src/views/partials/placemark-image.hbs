@@ -1,11 +1,11 @@
 <div class="card">
   <div class="card-image">
     <figure class="image is-256x256">
-      <img id="category-image" src={{category.img}}>
+      <img id="placemark-image" src={{placemark.img}}>
     </figure>
   </div>
   <div class="card-content">
-    <form action="/category/{{category._id}}/uploadimage" method="POST" enctype="multipart/form-data">
+    <form action="/placemark/{{placemark._id}}/uploadimage" method="POST" enctype="multipart/form-data">
       <div id="file-select" class="file has-name is-fullwidth">
         <label class="file-label"> <input class="file-input" name="imagefile" type="file" name="resume" accept="image/png, image/jpeg">
           <span class="file-cta">
@@ -35,9 +35,9 @@
 </script>
 
 <script>
-  result = document.getElementById("category-image").getAttribute('src') === '';
+  result = document.getElementById("placemark-image").getAttribute('src') === '';
   if (result === false) {
-    delete_icon_html = '<a href="/category/{{category._id}}/deleteimage" class="button is-danger is-outlined"><i class="fas fa-trash"></i></a>';
+    delete_icon_html = '<a href="/placemark/{{placemark._id}}/deleteimage" class="button is-danger is-outlined"><i class="fas fa-trash"></i></a>';
     document.getElementById('file-select').innerHTML += delete_icon_html;
   }
 </script>

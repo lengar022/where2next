@@ -4,3 +4,27 @@
   {{> list-categories}}
   {{> add-category}}
 </section>
+
+<script>
+  const images = document.querySelectorAll('img');
+
+  images.forEach(replaceEmptySrc);
+
+  function replaceEmptySrc(image) {
+    if (image.getAttribute('src') === '') {
+        image.src = "https://bulma.io/assets/images/placeholders/480x480.png";
+    }
+  }
+</script>
+
+<script>
+  const inputs = document.querySelectorAll(".file-input");
+  const filenames = document.querySelectorAll(".file-name")
+  for (let i = 0; i < inputs.length; i += 1) {
+    inputs[i].onchange = () => {
+      if (inputs[i].files.length > 0) {
+        filenames[i].textContent = inputs[i].files[0].name;
+      }
+    }
+  }
+</script>

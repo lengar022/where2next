@@ -21,13 +21,14 @@ export const webRoutes = [
   { method: "GET", path: "/dashboard", config: dashboardController.index },
   { method: "POST", path: "/dashboard/addcategory", config: dashboardController.addCategory },
   { method: "GET", path: "/dashboard/deletecategory/{id}", config: dashboardController.deleteCategory },
+  { method: "POST", path: "/dashboard/uploadimage/{id}", config: dashboardController.uploadImage },
+  { method: "GET", path: "/dashboard/deleteimage/{id}", config: dashboardController.deleteImage },
 
   { method: "GET", path: "/category/{id}", config: categoryController.index },
   { method: "POST", path: "/category/{id}/addplacemark", config: categoryController.addPlacemark },
   { method: "GET", path: "/category/{id}/deleteplacemark/{placemarkid}", config: categoryController.deletePlacemark },
+  { method: "POST", path: "/category/{id}/uploadimage/{placemarkid}", config: categoryController.uploadImage },
+  { method: "GET", path: "/category/{id}/deleteimage/{placemarkid}", config: categoryController.deleteImage },
 
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
-
-  { method: "POST", path: "/category/{id}/uploadimage", config: categoryController.uploadImage },
-  { method: "GET", path: "/category/{id}/deleteimage", config: categoryController.deleteImage },
 ];

@@ -1,15 +1,5 @@
-{{#each categories}}
-  <div class="box box-link-hover-shadow">
-    <h2 class="title">
-      {{title}}
-    </h2>
-    <a href="/category/{{_id}}" class="button is-primary is-outlined">
-      <span class="icon is-small">
-        <i class="fas fa-folder-open"></i>
-      </span>
-    </a>
-    <a href="/dashboard/deletecategory/{{_id}}" class="button is-danger is-outlined">
-      <i class="fas fa-trash"></i>
-    </a>
-  </div>
-{{/each}}
+<div class="columns is-centered">
+  {{#each categories}}
+    {{> category-card}}
+  {{/each}}
+</div>

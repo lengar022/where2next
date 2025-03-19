@@ -1,4 +1,4 @@
-import Path from "path"
+import Path from "path";
 import { PlacemarkSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
