@@ -1,18 +1,47 @@
 {{> menu}}
 
-<section class="section columns is-vcentered">
-  <div class="column has-text-centered">
+<section class="section columns is-flex is-centered is-multiline">
+  <div class="column is-12 has-text-centered">
     <div class="title">
       {{category.title}}
     </div>
-    {{> list-placemarks}}
+  </div>
+  {{> placemark-cards}}
+</section>
+
+<section class="section columns is-centered">
+  <div class="column is-6">  
     {{> add-placemark}}
   </div>
-  <div class="column box">
+</section>
+
+<section class="section columns is-centered">
+  <div class="column is-6 box">
     {{> map }}
     {{> plot-placemarks}}
   </div>
-  <div class="column">
-    {{> category-image }}
-  </div>
 </section>
+
+<script>
+  const images = document.querySelectorAll('img');
+
+  images.forEach(replaceEmptySrc);
+
+  function replaceEmptySrc(image) {
+    if (image.getAttribute('src') === '') {
+        image.src = "https://bulma.io/assets/images/placeholders/480x480.png";
+    }
+  }
+</script>
+
+<script>
+  const inputs = document.querySelectorAll(".file-input");
+  const filenames = document.querySelectorAll(".file-name")
+  for (let i = 0; i < inputs.length; i += 1) {
+    inputs[i].onchange = () => {
+      if (inputs[i].files.length > 0) {
+        filenames[i].textContent = inputs[i].files[0].name;
+      }
+    }
+  }
+</script>

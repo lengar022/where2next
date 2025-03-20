@@ -48,17 +48,17 @@ export const categoryController = {
   uploadImage: {
     handler: async function (request, h) {
       try {
-        const category = await db.categoryStore.getCategoryById(request.params.id);
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.placemarkid);
         const file = request.payload.imagefile;
         if (Object.keys(file).length > 0) {
           const url = await imageStore.uploadImage(request.payload.imagefile);
-          category.img = url;
-          await db.categoryStore.updateCategory(category);
+          placemark.img = url;
+          await db.placemarkStore.updatePlacemark(placemark);
         }
-        return h.redirect(`/category/${category._id}`);
+        return h.redirect(`/category/${request.params.id}`);
       } catch (err) {
         console.log(err);
-        return h.redirect(`/category/${category._id}`);
+        return h.redirect(`/category/${request.params.id}`);
       }
     },
     payload: {
@@ -72,18 +72,18 @@ export const categoryController = {
   deleteImage: {
     handler: async function (request, h) {
       try {
-        const category = await db.categoryStore.getCategoryById(request.params.id);
-        const url = category.img
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.placemarkid);
+        const url = placemark.img
         if (url) {
           const filename = Path.parse(url).name 
           await imageStore.deleteImage(filename);
-          category.img = null;
-          await db.categoryStore.updateCategory(category);
+          placemark.img = null;
+          await db.placemarkStore.updatePlacemark(placemark);
         }
-        return h.redirect(`/category/${category._id}`);
+        return h.redirect(`/category/${request.params.id}`);
       } catch (err) {
         console.log(err);
-        return h.redirect(`/category/${category._id}`);
+        return h.redirect(`/category/${request.params.id}`);
       }
     },
   },

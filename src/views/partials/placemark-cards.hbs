@@ -1,0 +1,68 @@
+{{#each category.placemarks}}
+    <div class="column is-3">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title is-size-4 is-centered">{{name}}</p>
+            </header>
+            <div class="card-image">
+            <figure class="image is-square is-480by480">
+                <img id="placemark-image-{{_id}}" src={{img}}>
+            </figure>
+            </div>
+            <div class="card-content">  
+            <form action="/category/{{../category._id}}/uploadimage/{{_id}}" method="POST" enctype="multipart/form-data">
+                <div id="card{{_id}}-fileselect" class="file has-name is-fullwidth">
+                <label class="file-label"> <input id="file-input-{{_id}}" class="file-input" name="imagefile" type="file" name="resume" accept="image/png, image/jpeg">
+                    <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                        Choose a file…
+                    </span>
+                    </span>
+                    <span id="file-name-{{_id}}" class="file-name"></span>
+                </label>
+                <button type="submit" class="button is-info">Upload</button>
+                </div>
+            </form>
+            </div>
+            <table class="table is-fullwidth">
+                <tbody>
+                    <tr>
+                        <th>Placemark</th>
+                        <td>{{name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{description}}</td>
+                    </tr>
+                    <tr>
+                        <th>Latitude</th>
+                        <td>{{latitude}}</td>
+                    </tr>
+                    <tr>
+                        <th>Longitude</th>
+                        <td>{{longitude}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer class="card-footer">
+                <a href="/category/{{../category._id}}/deleteplacemark/{{_id}}" class="card-footer-item button is-danger is-outlined">
+                    <span class="icon is-small is-danger">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                </a>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+    result = document.getElementById("placemark-image-{{_id}}").getAttribute('src') === '';
+    if (result === false) {
+        delete_icon_html = '<a href="/category/{{../category._id}}/deleteimage/{{_id}}" class="button is-danger is-outlined"><i class="fas fa-trash"></i></a>';
+        document.getElementById("card{{_id}}-fileselect").innerHTML += delete_icon_html;
+    }
+    </script>
+{{/each}}
+
