@@ -12,6 +12,7 @@ export const dashboardController = {
         title: "Where2Next Dashboard",
         user: loggedInUser,
         categories: categories,
+        breadcrumb: "Dashboard",
       };
       return h.view("dashboard-view", viewData);
     },

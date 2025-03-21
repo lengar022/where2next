@@ -12,6 +12,7 @@ export const adminController = {
         title: "Admin Dashboard",
         user: loggedInUser,
         allUsers: allUsers,
+        breadcrumb: "Admin Dashboard",
       };
       return h.view("admin-view", viewData);
     },

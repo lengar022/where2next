@@ -10,6 +10,7 @@ export const categoryController = {
       const viewData = {
         title: "Category",
         category: category,
+        breadcrumb: `${category.title}`,
       };
       return h.view("category-view", viewData);
     },
@@ -87,4 +88,17 @@ export const categoryController = {
       }
     },
   },
+
+  getPlacemarkWeather: {
+    async handler(request) {
+      try {
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+        const weatherData = await weatherStore.getPlacemarkWeather(placemark.latitude, placemark.longitude)
+        return weatherData;
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/category/${request.params.id}`);
+      }
+    },
+  }
 };

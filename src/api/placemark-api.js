@@ -1,7 +1,8 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { IdSpec, PlacemarkSpec, PlacemarkSpecPlus, PlacemarkArraySpec } from "../models/joi-schemas.js";
+import { IdSpec, PlacemarkSpec, PlacemarkSpecPlus, PlacemarkArraySpec, WeatherSpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { weatherStore } from "../models/weather-Store.js";
 
 export const placemarkApi = {
   find: {
@@ -101,5 +102,28 @@ export const placemarkApi = {
     tags: ["api"],
     description: "Delete a placemark",
     validate: { params: { id: IdSpec }, failAction: validationError },
+  },
+
+  getWeather: {
+    auth: {
+      strategy: "jwt",
+    },
+    async handler(request) {
+      try {
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+        if (!placemark) {
+          return Boom.notFound("No placemark with this id");
+        }
+        const weatherData = await weatherStore.getPlacemarkWeather(placemark.latitude, placemark.longitude)
+        return weatherData;
+      } catch (err) {
+        return Boom.serverUnavailable("Failed to access weather data for placemark");
+      }
+    },
+    tags: ["api"],
+    description: "Retrieve weather data for placemark",
+    notes: "Returns openweathermap.org icon and temperature for the next 7 days for a placemark",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: WeatherSpec, failAction: validationError },
   },
 };

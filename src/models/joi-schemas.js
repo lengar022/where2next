@@ -60,3 +60,13 @@ export const CategorySpecPlus = CategorySpec.keys({
 }).label("CategoryPlus");
 
 export const CategoryArraySpec = Joi.array().items(CategorySpecPlus).label("CategoryArray");
+
+const TempArraySpec = Joi.array().items(Joi.number()).required().example([ 9.08, 8.91, 8.49, 8.49, 6.1, 4.37, 4.09 ] ).label("TempArray");
+const IconArraySpec = Joi.array().items(Joi.string()).required().example([ "10d", "10d", "10n", "10n", "10n", "10n", "10n" ] ).label("IconArray");
+
+export const WeatherSpec = Joi.object()
+  .keys({
+    temps: TempArraySpec,
+    icons: IconArraySpec,
+  })
+  .label("Weather");
