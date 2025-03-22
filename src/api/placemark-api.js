@@ -1,6 +1,6 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { IdSpec, PlacemarkSpec, PlacemarkSpecPlus, PlacemarkArraySpec, WeatherSpec } from "../models/joi-schemas.js";
+import { IdSpec, PlacemarkSpec, PlacemarkSpecPlus, PlacemarkArraySpec, WeatherArraySpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 import { weatherStore } from "../models/weather-Store.js";
 
@@ -122,8 +122,8 @@ export const placemarkApi = {
     },
     tags: ["api"],
     description: "Retrieve weather data for placemark",
-    notes: "Returns openweathermap.org icon and temperature for the next 7 days for a placemark",
+    notes: "Returns the openweathermap.org icon and temperature for the next 7 days for a placemark",
     validate: { params: { id: IdSpec }, failAction: validationError },
-    response: { schema: WeatherSpec, failAction: validationError },
+    response: { schema: WeatherArraySpec, failAction: validationError },
   },
 };

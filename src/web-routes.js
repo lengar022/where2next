@@ -27,6 +27,7 @@ export const webRoutes = [
   { method: "GET", path: "/category/{id}", config: categoryController.index },
   { method: "POST", path: "/category/{id}/addplacemark", config: categoryController.addPlacemark },
   { method: "GET", path: "/category/{id}/deleteplacemark/{placemarkid}", config: categoryController.deletePlacemark },
+  { method: "GET", path: "/category/{id}/placemark/{placemarkid}/weather", config: categoryController.getPlacemarkWeather },
   { method: "POST", path: "/category/{id}/uploadimage/{placemarkid}", config: categoryController.uploadImage },
   { method: "GET", path: "/category/{id}/deleteimage/{placemarkid}", config: categoryController.deleteImage },
 

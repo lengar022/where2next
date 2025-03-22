@@ -48,9 +48,11 @@
                     <tr>
                         <th>Forecast</th>
                         <td>
-                            <button class="js-modal-trigger ui icon button is-info is-outlined" data-target="modal-placemark-weather">
-                                <i class="fas fa-cloud-sun"></i>
-                            </button>
+                            <a href="/category/{{../category._id}}/placemark/{{_id}}/weather"  class="card-footer-item button is-info is-outlined">
+                                <span class="icon is-small is-info">
+                                    <i class="fas fa-cloud-sun"></i>
+                                </span>
+                            </a>
                         </td>
                     </tr>
                 </tbody>
@@ -65,35 +67,6 @@
         </div>
     </div>
 
-    <div id="modal-placemark-weather" class="modal">
-        <div class="modal-background"></div>
-        <div class="modal-card">
-            <header class="modal-card-head has-text-centered">
-            <p class="modal-card-title">Forecast</p>
-            <button class="delete" aria-label="close"></button>
-            </header>
-            <section class="modal-card-body">
-                <table>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <span class="icon is-large">
-                                        <img src='https://openweathermap.org/img/wn/02d@2x.png'></img>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>23℃</td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </section>
-            <footer class="modal-card-foot">
-            <button class="button is-info">Close</button>
-            </footer>
-        </div>
-    </div>
-
     <script>
         result = document.getElementById("placemark-image-{{_id}}").getAttribute('src') === '';
         if (result === false) {
@@ -102,48 +75,3 @@
         }
     </script>
 {{/each}}
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    // Functions to open and close a modal
-    function openModal($el) {
-      $el.classList.add('is-active');
-    }
-
-    function closeModal($el) {
-      $el.classList.remove('is-active');
-    }
-
-    function closeAllModals() {
-      (document.querySelectorAll('.modal') || []).forEach(($modal) => {
-        closeModal($modal);
-      });
-    }
-
-    // Add a click event on buttons to open a specific modal
-    (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
-      const modal = $trigger.dataset.target;
-      const $target = document.getElementById(modal);
-
-      $trigger.addEventListener('click', () => {
-        openModal($target);
-      });
-    });
-
-    // Add a click event on various child elements to close the parent modal
-    (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
-      const $target = $close.closest('.modal');
-
-      $close.addEventListener('click', () => {
-        closeModal($target);
-      });
-    });
-
-    // Add a keyboard event to close all modals
-    document.addEventListener('keydown', (event) => {
-      if(event.key === "Escape") {
-        closeAllModals();
-      }
-    });
-  });
-</script>

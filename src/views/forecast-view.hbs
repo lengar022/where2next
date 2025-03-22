@@ -1,0 +1,43 @@
+{{> menu}}
+
+<section class="section columns is-flex is-centered">
+  <div class="column is-6">
+      <div class="card">
+          <header class="card-header">
+              <p class="card-header-title has-text-primary is-size-4 is-centered">{{placemark.name}} Weather Forecast</p>
+          </header>
+          <div class="card-content"> 
+                <table class="table is-fullwidth">
+                    <tbody id="forecast-body">
+                        <tr>
+                            {{#each weather}}
+                            <th class="has-text-centered has-text-link">{{day}}</th>
+                            {{/each}}
+                        </tr>
+                        <tr>
+                            {{#each weather}}
+                            <td class="has-text-centered">
+                                <span class="icon is-large">
+                                    <img src="https://openweathermap.org/img/wn/{{icon}}@2x.png"></img>
+                                </span>
+                            </td>
+                            {{/each}}
+                        </tr>
+                        <tr>
+                            {{#each weather}}
+                            <th class="has-text-centered has-text-warning">{{temp}}℃</th>
+                            {{/each}}
+                        </tr>
+                    </tbody>
+                </table>
+          </div>
+          <footer class="card-footer">
+            <a href="/category/{{category._id}}" class="card-footer-item button is-primary is-outlined">
+              <span class="icon is-large">
+                <i class="fas fa-arrow-left"></i>
+              </span>
+            </a>
+          </footer>
+      </div>
+  </div>
+</section>

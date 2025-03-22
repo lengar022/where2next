@@ -2,6 +2,7 @@ import Path from "path";
 import { PlacemarkSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 import { imageStore } from "../models/image-store.js";
+import { weatherStore } from "../models/weather-Store.js";
 
 export const categoryController = {
   index: {
@@ -90,15 +91,23 @@ export const categoryController = {
   },
 
   getPlacemarkWeather: {
-    async handler(request) {
+    async handler(request, h) {
       try {
-        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
-        const weatherData = await weatherStore.getPlacemarkWeather(placemark.latitude, placemark.longitude)
-        return weatherData;
+        const category = await db.categoryStore.getCategoryById(request.params.id);
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.placemarkid);
+        const weatherData = await weatherStore.getPlacemarkWeather(placemark.latitude, placemark.longitude);
+        const viewData = {
+          title: "Category",
+          category: category,
+          placemark: placemark,
+          breadcrumb: `${placemark.name} Weather Forcast`,
+          weather: weatherData,
+        };
+        return h.view("forecast-view", viewData);
       } catch (err) {
         console.log(err);
         return h.redirect(`/category/${request.params.id}`);
       }
     },
-  }
+  },
 };
