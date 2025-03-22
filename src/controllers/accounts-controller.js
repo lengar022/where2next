@@ -25,7 +25,7 @@ export const accountsController = {
     },
     handler: async function (request, h) {
       const user = request.payload;
-      user.role = "user";
+      user.scope = "user";
       await db.userStore.addUser(user);
       return h.redirect("/login");
     },
@@ -60,6 +60,14 @@ export const accountsController = {
   },
   logout: {
     handler: function (request, h) {
+      request.cookieAuth.clear();
+      return h.redirect("/");
+    },
+  },
+
+  deleteUser: {
+    handler: async function (request, h) {
+      await db.userStore.deleteUserById(request.params.id);
       request.cookieAuth.clear();
       return h.redirect("/");
     },

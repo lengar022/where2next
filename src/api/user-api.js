@@ -23,7 +23,7 @@ export const userApi = {
       }
     },
     tags: ["api"],
-    description: "Authenticate  a User",
+    description: "Authenticate a user",
     notes: "If user has valid email/password, create and return a JWT token",
     validate: { payload: UserCredentialsSpec, failAction: validationError },
     response: { schema: JwtAuth, failAction: validationError }
@@ -63,7 +63,7 @@ export const userApi = {
       }
     },
     tags: ["api"],
-    description: "Get a specific user",
+    description: "Get a user",
     notes: "Returns user details",
     validate: { params: { id: IdSpec }, failAction: validationError },
     response: { schema: UserSpecPlus, failAction: validationError },
@@ -89,6 +89,46 @@ export const userApi = {
     response: { schema: UserSpecPlus, failAction: validationError },
   },
 
+  deleteMe: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        await db.userStore.deleteUserById(request.auth.credentials._id);
+        return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Delete current user",
+    notes: "Current user removed from Where2Next",
+  },
+
+  deleteOne: {
+    auth: {
+      strategy: "jwt",
+      scope: ["admin"],
+    },
+    handler: async function (request, h) {
+      try {
+        const user = await db.userStore.getUserById(request.params.id);
+        if (!user) {
+          return Boom.notFound("No User with this id");
+        }
+        await db.userStore.deleteUserById(request.params.id);
+        return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
+      }
+    },
+    tags: ["api"],
+    description: "Delete a user",
+    notes: "User removed from Where2Next - Admin access only",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+  },
+
   deleteAll: {
     auth: {
       strategy: "jwt",
@@ -104,6 +144,6 @@ export const userApi = {
     },
     tags: ["api"],
     description: "Delete all userApi",
-    notes: "All userApi removed from Where2Next",
+    notes: "All userApi removed from Where2Next - Admin access only",
   },
 };

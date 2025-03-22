@@ -2,7 +2,7 @@ import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
 import { IdSpec, PlacemarkSpec, PlacemarkSpecPlus, PlacemarkArraySpec, WeatherArraySpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
-import { weatherStore } from "../models/weather-Store.js";
+import { weatherStore } from "../models/weather-store.js";
 
 export const placemarkApi = {
   find: {
@@ -39,7 +39,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Find a Placemark",
+    description: "Find a placemark",
     notes: "Returns a placemark",
     validate: { params: { id: IdSpec }, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
@@ -70,6 +70,7 @@ export const placemarkApi = {
   deleteAll: {
     auth: {
       strategy: "jwt",
+      scope: ["admin"],
     },
     handler: async function (request, h) {
       try {
@@ -81,6 +82,7 @@ export const placemarkApi = {
     },
     tags: ["api"],
     description: "Delete all placemarkApi",
+    notes: "Delete all placemarks - Admin access only",
   },
 
   deleteOne: {
@@ -121,7 +123,7 @@ export const placemarkApi = {
       }
     },
     tags: ["api"],
-    description: "Retrieve weather data for placemark",
+    description: "Find placemark weather",
     notes: "Returns the openweathermap.org icon and temperature for the next 7 days for a placemark",
     validate: { params: { id: IdSpec }, failAction: validationError },
     response: { schema: WeatherArraySpec, failAction: validationError },

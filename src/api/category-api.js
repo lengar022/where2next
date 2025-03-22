@@ -38,7 +38,7 @@ export const categoryApi = {
       }
     },
     tags: ["api"],
-    description: "Find a Category",
+    description: "Find a category",
     notes: "Returns a category",
     validate: { params: { id: IdSpec }, failAction: validationError },
     response: { schema: CategorySpecPlus, failAction: validationError },
@@ -61,7 +61,7 @@ export const categoryApi = {
       }
     },
     tags: ["api"],
-    description: "Create a Category",
+    description: "Create a category",
     notes: "Returns the newly created category",
     validate: { payload: CategorySpec, failAction: validationError },
     response: { schema: CategorySpecPlus, failAction: validationError },
@@ -91,6 +91,7 @@ export const categoryApi = {
   deleteAll: {
     auth: {
       strategy: "jwt",
+      scope: ["admin"],
     },
     handler: async function (request, h) {
       try {
@@ -101,6 +102,7 @@ export const categoryApi = {
       }
     },
     tags: ["api"],
-    description: "Delete all CategoryApi",
+    description: "Delete all categoryApi",
+    notes: "Deletes all categories - Admin access only",
   },
 };
