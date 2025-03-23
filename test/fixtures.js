@@ -2,13 +2,13 @@ export const adminUser = {
   firstName: "admin",
   lastName: "user",
   email: "admin@user.com",
-  password: "adminuser",
+  password: "admin",
   scope: "admin",
 };
 
 export const adminUserCredentials = {
   email: "admin@user.com",
-  password: "adminuser",
+  password: "admin",
 };
 
 export const maggie = {

@@ -11,20 +11,20 @@ export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).descrip
 
 export const UserCredentialsSpec = Joi.object()
   .keys({
-    email: Joi.string().email().example("homer@simpson.com").required(),
+    email: Joi.string().email().example("maggie@simpson.com").required(),
     password: Joi.string().example("secret").required(),
   })
   .label("UserCredentials");
 
 export const SignUpSpec = UserCredentialsSpec.keys({
-  firstName: Joi.string().example("Homer").required(),
+  firstName: Joi.string().example("Maggie").required(),
   lastName: Joi.string().example("Simpson").required(),
 }).label("UserSignUpDetails");
 
 export const UserSpec = UserCredentialsSpec.keys({
-    firstName: Joi.string().example("Homer").required(),
+    firstName: Joi.string().example("Maggie").required(),
     lastName: Joi.string().example("Simpson").required(),
-    scope: Joi.string().example("admin").required(),
+    scope: Joi.string().example("user").required(),
   }).label("UserDetails");
 
 export const UserSpecPlus = UserSpec.keys({
@@ -45,6 +45,7 @@ export const PlacemarkSpec = Joi.object()
   .label("Placemark");
 
 export const PlacemarkSpecPlus = PlacemarkSpec.keys({
+  img: Joi.string().allow("").optional().example("http://res.cloudinary.com/dl4yq0hkm/image/upload/v1742722758/ftmamg03urqomuxd65yf.jpg"),
   _id: IdSpec,
   __v: Joi.number(),
 }).label("PlacemarkPlus");
@@ -55,14 +56,14 @@ export const CategorySpec = Joi.object()
   .keys({
     title: Joi.string().required().example("Cliff Walks"),
     userid: IdSpec,
-    placemarks: PlacemarkArraySpec,
   })
   .label("Category");
 
 export const CategorySpecPlus = CategorySpec.keys({
+  placemarks: PlacemarkArraySpec,
+  img: Joi.string().example("http://res.cloudinary.com/dl4yq0hkm/image/upload/v1742722758/ftmamg03urqomuxd65yf.jpg"),
   _id: IdSpec,
   __v: Joi.number(),
-  img: Joi.string().example("http://res.cloudinary.com/dl4yq0hkm/image/upload/v1742722758/ftmamg03urqomuxd65yf.jpg"),
 }).label("CategoryPlus");
 
 export const CategoryArraySpec = Joi.array().items(CategorySpecPlus).label("CategoryArray");
