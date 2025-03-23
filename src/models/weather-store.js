@@ -7,7 +7,6 @@ dotenv.config();
 const apiKey =  process.env.openweathermap_key;
 
 export const weatherStore = {
-
   getPlacemarkWeather: async function(lat, long) {
     const data = [];
     const days = [];
