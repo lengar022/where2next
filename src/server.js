@@ -21,7 +21,7 @@ const __dirname = path.dirname(__filename);
 const swaggerOptions = {
   info: {
     title: "Where2Next API",
-    version: "0.1",
+    version: "0.4",
   },
   securityDefinitions: {
     jwt: {
@@ -41,9 +41,9 @@ if (result.error) {
 
 async function init() {
   const server = Hapi.server({
-    // port: process.env.PORT,
-    port: 3000,
-    host: "localhost",
+    port: process.env.PORT,
+    // port: 3000,
+    // host: "localhost",
   });
 
   await server.register(Vision);
