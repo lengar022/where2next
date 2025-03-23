@@ -15,7 +15,12 @@ export const UserCredentialsSpec = Joi.object()
     password: Joi.string().example("secret").required(),
   })
   .label("UserCredentials");
- 
+
+export const SignUpSpec = UserCredentialsSpec.keys({
+  firstName: Joi.string().example("Homer").required(),
+  lastName: Joi.string().example("Simpson").required(),
+}).label("UserSignUpDetails");
+
 export const UserSpec = UserCredentialsSpec.keys({
     firstName: Joi.string().example("Homer").required(),
     lastName: Joi.string().example("Simpson").required(),
@@ -57,6 +62,7 @@ export const CategorySpec = Joi.object()
 export const CategorySpecPlus = CategorySpec.keys({
   _id: IdSpec,
   __v: Joi.number(),
+  img: Joi.string().example("http://res.cloudinary.com/dl4yq0hkm/image/upload/v1742722758/ftmamg03urqomuxd65yf.jpg"),
 }).label("CategoryPlus");
 
 export const CategoryArraySpec = Joi.array().items(CategorySpecPlus).label("CategoryArray");

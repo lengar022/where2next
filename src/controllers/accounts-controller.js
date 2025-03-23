@@ -1,4 +1,4 @@
-import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
+import { SignUpSpec, UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
 
 export const accountsController = {
@@ -17,7 +17,7 @@ export const accountsController = {
   signup: {
     auth: false,
     validate: {
-      payload: UserSpec,
+      payload: SignUpSpec,
       options: { abortEarly: false },
       failAction: function (request, h, error) {
         return h.view("signup-view", { title: "Sign up error", errors: error.details }).takeover().code(400);

@@ -49,6 +49,8 @@ suite("Category API tests", () => {
     }
     let returnedLists = await where2nextService.getAllCategories();
     assert.equal(returnedLists.length, testCategories.length);
+    user = await where2nextService.createUser(adminUser);
+    await where2nextService.authenticate(adminUserCredentials);
     await where2nextService.deleteAllCategories();
     returnedLists = await where2nextService.getAllCategories();
     assert.equal(returnedLists.length, 0);

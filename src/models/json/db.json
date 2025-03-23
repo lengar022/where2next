@@ -5,27 +5,42 @@
       "lastName": "Simpson",
       "email": "homer@simpson.com",
       "password": "secret",
-      "_id": "22a5ad54-e0dd-4b9e-b2ba-ade94fd133ea"
+      "scope": "user",
+      "_id": "64a8977d-9bed-46ad-967c-3ae3d88bf6e0"
     },
     {
       "firstName": "Marge",
       "lastName": "Simpson",
       "email": "marge@simpson.com",
       "password": "secret",
-      "_id": "9944c80d-b921-4dd3-b62d-f0baf4146329"
+      "scope": "user",
+      "_id": "466a123c-6dfc-4734-b30e-900b5c3da8ef"
     },
     {
       "firstName": "Bart",
       "lastName": "Simpson",
       "email": "bart@simpson.com",
       "password": "secret",
-      "_id": "d91ad877-1ed3-4997-8d06-fdd06deeae0e"
+      "scope": "user",
+      "_id": "a535cab0-29c9-47a2-ba60-6c7e605bbe18"
     }
   ],
   "categories": [
     {
+      "title": "Beaches",
+      "_id": "02a63a15-324d-4116-863c-efa71d7ca381"
+    },
+    {
+      "title": "Cliff Walks",
+      "_id": "e01b0d60-c255-4619-a335-a6349bbcac35"
+    },
+    {
+      "title": "Sea Swims",
+      "_id": "5c7b20d7-7641-493e-a94f-ddbfcf1137e3"
+    },
+    {
       "title": "Green Ways",
-      "_id": "d3fd2562-aebd-42cd-9d20-3fac245f23af"
+      "_id": "cc9e52c1-5bdf-4e73-83b0-0c104c94fda3"
     }
   ],
   "placemarks": [
@@ -34,24 +49,24 @@
       "description": "Sauna and swim by a slip just outside cork city",
       "latitude": 14.22,
       "longitude": 14.44,
-      "_id": "76cc5e10-098c-4205-9a98-01ba893a7a5b",
-      "categoryid": "d3fd2562-aebd-42cd-9d20-3fac245f23af"
+      "_id": "471d38d1-7e0b-4610-9180-8d154284c687",
+      "categoryid": "f1335257-47eb-4cc0-8105-1d258193f5c4"
     },
     {
       "name": "Ballybunion",
       "description": "Large beach located in North Kerry",
       "latitude": 13.22,
       "longitude": 13.44,
-      "_id": "96942c98-d288-4379-a747-49e22ade5157",
-      "categoryid": "d3fd2562-aebd-42cd-9d20-3fac245f23af"
+      "_id": "938530c2-a41e-4514-85c4-21863c8e0410",
+      "categoryid": "f1335257-47eb-4cc0-8105-1d258193f5c4"
     },
     {
       "name": "Bother Glas",
       "description": "Walkway along the river Clyda in Mourneabbey",
       "latitude": 12.22,
       "longitude": 12.44,
-      "_id": "f1600b0a-8700-4b15-8e12-a2a91b3abcb5",
-      "categoryid": "d3fd2562-aebd-42cd-9d20-3fac245f23af"
+      "_id": "7faa73ee-5823-4d5a-bfd0-23b22f5e9d24",
+      "categoryid": "f1335257-47eb-4cc0-8105-1d258193f5c4"
     }
   ]
 }

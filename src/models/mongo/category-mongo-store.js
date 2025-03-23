@@ -5,6 +5,10 @@ import { placemarkMongoStore } from "./placemark-mongo-store.js";
 export const categoryMongoStore = {
   async getAllCategories() {
     const categories = await Category.find().lean();
+    for (let i = 0; i < categories.length; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      categories[i].placemarks = await placemarkMongoStore.getPlacemarksByCategoryId(categories[i]._id);
+    }
     return categories;
   },
 
