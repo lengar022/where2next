@@ -44,6 +44,28 @@ export const categoryApi = {
     response: { schema: CategorySpecPlus, failAction: validationError },
   },
 
+  findPersonal: {
+    auth: {
+      strategy: "jwt",
+    },
+    async handler(request) {
+      try {
+        const categories = await db.categoryStore.getUserCategories(request.params.id);
+        if (!categories) {
+          return Boom.notFound("No Categories assosiated with this id");
+        }
+        return categories;
+      } catch (err) {
+        return Boom.serverUnavailable("No Categories assosiated with this id");
+      }
+    },
+    tags: ["api"],
+    description: "Find user's categories",
+    notes: "Returns a list of categories",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: CategoryArraySpec, failAction: validationError },
+  },
+
   create: {
     auth: {
       strategy: "jwt",
