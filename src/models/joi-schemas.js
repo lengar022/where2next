@@ -1,5 +1,7 @@
 import Joi from "joi";
 
+export const ImageSpec = Joi.string().example("http://res.cloudinary.com/dl4ykm/image/upload/v174273/slzjromkoqdduiftwj.png").description("a valid URL").required();
+
 export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
 
 export const JwtAuth = Joi.object()

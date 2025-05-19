@@ -54,6 +54,9 @@ export const categoryMongoStore = {
     const category = await Category.findOne({ _id: updatedCategory._id });
     category.title = updatedCategory.title;
     category.img = updatedCategory.img;
-    await category.save();
+    category._id = updatedCategory._id;
+    category.userid = updatedCategory.userid;
+    const categoryObj = await category.save();
+    return this.getCategoryById(categoryObj._id);
   },
 };
