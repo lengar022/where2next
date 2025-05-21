@@ -1,7 +1,9 @@
 import Boom from "@hapi/boom";
+import Path from "path";
 import { db } from "../models/db.js";
 import { IdSpec, CategoryArraySpec, CategorySpec, CategorySpecPlus, ImageSpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { imageStore } from "../models/image-store.js";
 
 export const categoryApi = {
   find: {
@@ -153,6 +155,31 @@ export const categoryApi = {
     description: "Update category image url",
     notes: "Updates category image url",
     validate: { params: { id: IdSpec }, failAction: validationError },
-    // response: { schema: CategorySpecPlus, failAction: validationError },
+  },
+  
+  deleteImage: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const category = await db.categoryStore.getCategoryById(request.params.id);
+        const url = category.img
+        if (url) {
+          const filename = Path.parse(url).name 
+          await imageStore.deleteImage(filename);
+          category.img = "https://bulma.io/assets/images/placeholders/480x480.png";
+          await db.categoryStore.updateCategory(category);
+        }
+        return h.response().code(204);
+      } catch (err) {
+        console.log(err);
+        return Boom.serverUnavailable("No Category with this id");
+      }
+    },
+    tags: ["api"],
+    description: "Delete category image",
+    notes: "Deletes category image from cloudinary",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 };
