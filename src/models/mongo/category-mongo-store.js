@@ -30,8 +30,12 @@ export const categoryMongoStore = {
   },
 
   async getUserCategories(id) {
-    const category = await Category.find({ userid: id }).lean();
-    return category;
+    const categories = await Category.find({ userid: id }).lean();
+    for (let i = 0; i < categories.length; i += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      categories[i].placemarks = await placemarkMongoStore.getPlacemarksByCategoryId(categories[i]._id);
+    }
+    return categories;
   },
 
   async deleteCategoryById(id) {
@@ -50,6 +54,9 @@ export const categoryMongoStore = {
     const category = await Category.findOne({ _id: updatedCategory._id });
     category.title = updatedCategory.title;
     category.img = updatedCategory.img;
-    await category.save();
+    category._id = updatedCategory._id;
+    category.userid = updatedCategory.userid;
+    const categoryObj = await category.save();
+    return this.getCategoryById(categoryObj._id);
   },
 };

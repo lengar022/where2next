@@ -11,4 +11,7 @@ const categorySchema = new Schema({
   },
 });
 
+categorySchema.path("img")
+  .default("https://bulma.io/assets/images/placeholders/480x480.png");
+
 export const Category = Mongoose.model("Category", categorySchema);

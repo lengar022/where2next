@@ -14,4 +14,7 @@ const placemarkSchema = new Schema({
   },
 });
 
+placemarkSchema.path("img")
+  .default("https://bulma.io/assets/images/placeholders/480x480.png");
+
 export const Placemark = Mongoose.model("Placemark", placemarkSchema);

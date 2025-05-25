@@ -1,7 +1,9 @@
 import Boom from "@hapi/boom";
+import Path from "path";
 import { db } from "../models/db.js";
 import { IdSpec, PlacemarkSpec, PlacemarkSpecPlus, PlacemarkArraySpec, WeatherArraySpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { imageStore } from "../models/image-store.js";
 import { weatherStore } from "../models/weather-store.js";
 
 export const placemarkApi = {
@@ -43,6 +45,28 @@ export const placemarkApi = {
     notes: "Returns a placemark",
     validate: { params: { id: IdSpec }, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
+  },
+  
+  findByCategory: {
+    auth: {
+      strategy: "jwt",
+    },
+    async handler(request) {
+      try {
+        const placemarks = await db.placemarkStore.getPlacemarksByCategoryId(request.params.id);
+        if (!placemarks) {
+          return Boom.notFound("No Placemarks assosiated with this category id");
+        }
+        return placemarks;
+      } catch (err) {
+        return Boom.serverUnavailable("No Placemarks assosiated with this category id");
+      }
+    },
+    tags: ["api"],
+    description: "Find placemarks associated with a given category",
+    notes: "Returns a list of placemarks",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: PlacemarkArraySpec, failAction: validationError },
   },
 
   create: {
@@ -105,6 +129,59 @@ export const placemarkApi = {
     description: "Delete a placemark",
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
+  
+    updateImageUrl: {
+      auth: {
+        strategy: "jwt",
+      },
+      handler: async function (request, h) {
+        try {
+          const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+          if (!placemark) {
+            return Boom.notFound("No Placemark with this id");
+          }
+          placemark.img = request.payload.url;
+          const newPlacemark = await db.placemarkStore.updatePlacemark(placemark);
+          console.log(newPlacemark);
+          if (newPlacemark) {
+            return h.response().code(201);
+          }
+          return Boom.badImplementation("error updating placemark image url");
+        } catch (err) {
+          return Boom.serverUnavailable("No Placemark with this id");
+        }
+      },
+      tags: ["api"],
+      description: "Update placemark image url",
+      notes: "Updates placemark image url",
+      validate: { params: { id: IdSpec }, failAction: validationError },
+    },
+    
+    deleteImage: {
+      auth: {
+        strategy: "jwt",
+      },
+      handler: async function (request, h) {
+        try {
+          const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+          const url = placemark.img
+          if (url) {
+            const filename = Path.parse(url).name 
+            await imageStore.deleteImage(filename);
+            placemark.img = "https://bulma.io/assets/images/placeholders/480x480.png";
+            await db.placemarkStore.updatePlacemark(placemark);
+          }
+          return h.response().code(204);
+        } catch (err) {
+          console.log(err);
+          return Boom.serverUnavailable("No Placemark with this id");
+        }
+      },
+      tags: ["api"],
+      description: "Delete placemark image",
+      notes: "Deletes placemark image from cloudinary",
+      validate: { params: { id: IdSpec }, failAction: validationError },
+    },
 
   getWeather: {
     auth: {

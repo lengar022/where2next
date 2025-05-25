@@ -16,12 +16,18 @@ export const apiRoutes = [
   { method: "DELETE", path: "/api/categories", config: categoryApi.deleteAll },
   { method: "GET", path: "/api/categories", config: categoryApi.find },
   { method: "GET", path: "/api/categories/{id}", config: categoryApi.findOne },
+  { method: "GET", path: "/api/categories/user/{id}", config: categoryApi.findPersonal },
   { method: "DELETE", path: "/api/categories/{id}", config: categoryApi.deleteOne },
+  { method: "POST", path: "/api/categories/{id}/imageurl", config: categoryApi.updateImageUrl },
+  { method: "DELETE", path: "/api/categories/{id}/imageurl", config: categoryApi.deleteImage },
 
   { method: "GET", path: "/api/placemarks", config: placemarkApi.find },
   { method: "DELETE", path: "/api/placemarks", config: placemarkApi.deleteAll },
   { method: "GET", path: "/api/placemarks/{id}", config: placemarkApi.findOne },
+  { method: "GET", path: "/api/placemarks/category/{id}", config: placemarkApi.findByCategory },
   { method: "DELETE", path: "/api/placemarks/{id}", config: placemarkApi.deleteOne },
   { method: "POST", path: "/api/categories/{id}/placemarks", config: placemarkApi.create },
+  { method: "POST", path: "/api/placemarks/{id}/imageurl", config: placemarkApi.updateImageUrl },
+  { method: "DELETE", path: "/api/placemarks/{id}/imageurl", config: placemarkApi.deleteImage },
   { method: "GET", path: "/api/placemarks/{id}/weather", config: placemarkApi.getWeather },
 ];

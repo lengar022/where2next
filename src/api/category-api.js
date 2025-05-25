@@ -1,7 +1,9 @@
 import Boom from "@hapi/boom";
+import Path from "path";
 import { db } from "../models/db.js";
-import { IdSpec, CategoryArraySpec, CategorySpec, CategorySpecPlus } from "../models/joi-schemas.js";
+import { IdSpec, CategoryArraySpec, CategorySpec, CategorySpecPlus, ImageSpec } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
+import { imageStore } from "../models/image-store.js";
 
 export const categoryApi = {
   find: {
@@ -42,6 +44,28 @@ export const categoryApi = {
     notes: "Returns a category",
     validate: { params: { id: IdSpec }, failAction: validationError },
     response: { schema: CategorySpecPlus, failAction: validationError },
+  },
+
+  findPersonal: {
+    auth: {
+      strategy: "jwt",
+    },
+    async handler(request) {
+      try {
+        const categories = await db.categoryStore.getUserCategories(request.params.id);
+        if (!categories) {
+          return Boom.notFound("No Categories assosiated with this id");
+        }
+        return categories;
+      } catch (err) {
+        return Boom.serverUnavailable("No Categories assosiated with this id");
+      }
+    },
+    tags: ["api"],
+    description: "Find user's categories",
+    notes: "Returns a list of categories",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+    response: { schema: CategoryArraySpec, failAction: validationError },
   },
 
   create: {
@@ -104,5 +128,58 @@ export const categoryApi = {
     tags: ["api"],
     description: "Delete all categoryApi",
     notes: "Deletes all categories - Admin access only",
+  },
+
+  updateImageUrl: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const category = await db.categoryStore.getCategoryById(request.params.id);
+        if (!category) {
+          return Boom.notFound("No Category with this id");
+        }
+        category.img = request.payload.url;
+        const newCategory = await db.categoryStore.updateCategory(category);
+        console.log(newCategory);
+        if (newCategory) {
+          return h.response().code(201);
+        }
+        return Boom.badImplementation("error updating category image url");
+      } catch (err) {
+        return Boom.serverUnavailable("No Category with this id");
+      }
+    },
+    tags: ["api"],
+    description: "Update category image url",
+    notes: "Updates category image url",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+  },
+  
+  deleteImage: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      try {
+        const category = await db.categoryStore.getCategoryById(request.params.id);
+        const url = category.img
+        if (url) {
+          const filename = Path.parse(url).name 
+          await imageStore.deleteImage(filename);
+          category.img = "https://bulma.io/assets/images/placeholders/480x480.png";
+          await db.categoryStore.updateCategory(category);
+        }
+        return h.response().code(204);
+      } catch (err) {
+        console.log(err);
+        return Boom.serverUnavailable("No Category with this id");
+      }
+    },
+    tags: ["api"],
+    description: "Delete category image",
+    notes: "Deletes category image from cloudinary",
+    validate: { params: { id: IdSpec }, failAction: validationError },
   },
 };

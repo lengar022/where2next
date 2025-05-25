@@ -44,6 +44,10 @@ async function init() {
     port: process.env.PORT,
     // port: 3000,
     // host: "localhost",
+<<<<<<< HEAD
+=======
+    routes: { cors: true },
+>>>>>>> release/v0.5.0
   });
 
   await server.register(Vision);
